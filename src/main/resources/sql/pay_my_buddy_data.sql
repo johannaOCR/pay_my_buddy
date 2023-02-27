@@ -1,9 +1,10 @@
 use pay_my_buddy;
+/*
 INSERT INTO user(user_id, firstname, lastname, email,password) VALUES
                         (1,'johanna','tristan','johanna.tristan@gmail.com','chutchut'),
                         (2,'theo','pointet','theo.pointet@gmail.com','theochut'),
                         (3,'manon','pointet','manon.pointet@gmail.com','manonchut')
-;
+;*/
 INSERT INTO wallet(wallet_id, balance, fk_user_id, fk_bank_account_id) VALUES
                           (1,30.6,1,1),
                           (2,152.2,2,2),

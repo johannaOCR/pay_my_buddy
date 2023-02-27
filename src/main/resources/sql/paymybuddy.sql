@@ -12,7 +12,7 @@ CREATE TABLE user(
 	UNIQUE (email)
 );
 
-
+alter table user modify user_id int auto_increment;
 
 DROP TABLE IF EXISTS wallet;
 CREATE TABLE wallet(
@@ -25,7 +25,7 @@ CREATE TABLE wallet(
 		
 	CONSTRAINT fk_user_id FOREIGN KEY (fk_user_id) REFERENCES user(user_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
-
+alter table wallet modify wallet_id int auto_increment;
 ALTER TABLE user ADD CONSTRAINT fk_wallet_id FOREIGN KEY (fk_wallet_id) REFERENCES wallet(wallet_id) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 
@@ -40,7 +40,7 @@ CREATE TABLE bank_account(
 	
 
 );
-
+alter table bank_account modify bank_account_id int auto_increment;
 ALTER TABLE wallet ADD CONSTRAINT fk_bank_account_id FOREIGN KEY (fk_bank_account_id) REFERENCES bank_account(bank_account_id) ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE bank_account ADD CONSTRAINT fk_wallet_id FOREIGN KEY (fk_wallet_id) REFERENCES wallet(wallet_id) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
@@ -62,7 +62,7 @@ CREATE TABLE money_transaction(
 	CONSTRAINT wallet_debtor_id FOREIGN KEY (wallet_debtor_id) REFERENCES wallet (wallet_id) ON DELETE  SET NULL ON UPDATE NO ACTION
 );
 
-
+alter table money_transaction modify transaction_id int auto_increment;
 
 DROP TABLE IF EXISTS contact;
 CREATE TABLE contact(
@@ -71,5 +71,6 @@ CREATE TABLE contact(
   PRIMARY KEY (fk_user_id,fk_user_contact_id)
 
 );
+
 ALTER TABLE contact ADD CONSTRAINT fk_user_id FOREIGN KEY (fk_user_id) REFERENCES user(user_id) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE contact ADD CONSTRAINT fk_user_contact_id FOREIGN KEY (fk_user_contact_id) REFERENCES user(user_id) ON DELETE NO ACTION ON UPDATE NO ACTION;

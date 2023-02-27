@@ -18,7 +18,48 @@ public class BankAccount {
     private String bic;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="fk_wallet_id")
+    @JoinColumn(name = "fk_wallet_id", referencedColumnName = "wallet_id")
     private Wallet wallet;
 
+    public int getBankAccountId() {
+        return bankAccountId;
+    }
+
+    public void setBankAccountId(int bankAccountId) {
+        this.bankAccountId = bankAccountId;
+    }
+
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
+    }
+
+    public String getBic() {
+        return bic;
+    }
+
+    public void setBic(String bic) {
+        this.bic = bic;
+    }
+
+    public Wallet getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
+    }
+
+    @Override
+    public String toString() {
+        return "BankAccount{" +
+                "bankAccountId=" + bankAccountId +
+                ", iban='" + iban + '\'' +
+                ", bic='" + bic + '\'' +
+                ", wallet=" + wallet.toString() +
+                '}';
+    }
 }

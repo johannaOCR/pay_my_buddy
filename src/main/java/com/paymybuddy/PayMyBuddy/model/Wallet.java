@@ -13,12 +13,12 @@ public class Wallet {
     @Column(name = "wallet_id")
     private int walletId;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_user_id", referencedColumnName = "user_id")
     private User user;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="fk_bank_account_id")
+    @JoinColumn(name = "fk_bank_account_id", referencedColumnName = "bank_account_id")
     private BankAccount bankAccounts;
 
     @Column(name = "balance")
@@ -76,5 +76,15 @@ public class Wallet {
 
     public void setCreditorTransactions(List<Transaction> creditorTransactions) {
         this.creditorTransactions = creditorTransactions;
+    }
+
+    @Override
+    public String toString() {
+        return "Wallet{" +
+                "walletId=" + walletId +
+                ", user=" + user.getUserId() +
+                ", bankAccounts=" + bankAccounts.getBankAccountId() +
+                ", balance=" + balance +
+                '}';
     }
 }
