@@ -14,7 +14,7 @@ public class Wallet {
     private int walletId;
 
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name="fk_user_id")
+    @JoinColumn(name = "fk_user_id", referencedColumnName = "user_id")
     private User user;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -30,5 +30,51 @@ public class Wallet {
     @OneToMany(mappedBy = "walletCreditor")
     List<Transaction> creditorTransactions = new ArrayList<>();
 
+    public int getWalletId() {
+        return walletId;
+    }
 
+    public void setWalletId(int walletId) {
+        this.walletId = walletId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public BankAccount getBankAccounts() {
+        return bankAccounts;
+    }
+
+    public void setBankAccounts(BankAccount bankAccounts) {
+        this.bankAccounts = bankAccounts;
+    }
+
+    public float getBalance() {
+        return balance;
+    }
+
+    public void setBalance(float balance) {
+        this.balance = balance;
+    }
+
+    public List<Transaction> getDebtorTransactions() {
+        return debtorTransactions;
+    }
+
+    public void setDebtorTransactions(List<Transaction> debtorTransactions) {
+        this.debtorTransactions = debtorTransactions;
+    }
+
+    public List<Transaction> getCreditorTransactions() {
+        return creditorTransactions;
+    }
+
+    public void setCreditorTransactions(List<Transaction> creditorTransactions) {
+        this.creditorTransactions = creditorTransactions;
+    }
 }

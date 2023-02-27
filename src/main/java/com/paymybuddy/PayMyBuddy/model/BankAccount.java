@@ -18,7 +18,7 @@ public class BankAccount {
     private String bic;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="wallet_id")
+    @JoinColumn(name="fk_wallet_id")
     private Wallet wallet;
 
 }
