@@ -98,6 +98,13 @@ public class User {
         this.contacts = contacts;
     }
 
+    public void addContact(User user) {
+        contacts.add(user);
+    }
+
+    public void removeContact(User user) {
+        contacts.remove(user);
+    }
     @Override
     public String toString() {
         return "User{" +

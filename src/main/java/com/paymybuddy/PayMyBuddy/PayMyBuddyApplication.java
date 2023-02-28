@@ -10,6 +10,7 @@ import com.paymybuddy.PayMyBuddy.service.UserService;
 import com.paymybuddy.PayMyBuddy.service.WalletService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.util.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -62,28 +63,28 @@ public class PayMyBuddyApplication implements CommandLineRunner {
 		Iterable<BankAccount> bankAccounts = bankAccountService.getBankAccounts();
 		bankAccounts.forEach(bankAccount -> System.out.println("bankAccount = " + bankAccount.toString()));
 */
-
-		/* WRITE */
-
+/*
+		// WRITE
+		// Creation d'un user
 		User user = new User();
 		user.setFirstname("maxime");
 		user.setLastname("pointet");
 		user.setEmail("maxime.pointet@mail.fr");
 		user.setPassword("maxouChut");
-
+	 	// creaton d'un wallet & lien vers user
 		Wallet wallet = new Wallet();
 		wallet.setBalance(0);
 		wallet.setUser(user);
-
-
-
+		// Creation d'un bank account & lien vers wallet
 		BankAccount bankAccount = new BankAccount();
 		bankAccount.setBic("tutumax");
 		bankAccount.setIban("toto");
 		bankAccount.setWallet(wallet);
 
+		// update du lien de wallet vers bank account
 		wallet.setBankAccounts(bankAccount);
 
+		// Création d'une transaction entre 2 wallet
 		Transaction transaction = new Transaction();
 		transaction.setAmount(10);transaction.setDate(new Date());
 		transaction.setBankTransaction(false);
@@ -91,17 +92,27 @@ public class PayMyBuddyApplication implements CommandLineRunner {
 		Optional<Wallet> walletOptional = walletService.getWalletById(1);
 		walletOptional.ifPresent(transaction::setWalletDebtor);
 
+		// création du lien du user vers le wallet complet
 		user.setWallet(wallet);
-		userService.saveUser(user);
-//		walletService.saveWallet(wallet);
 
+		//creation d'un contact
+		Optional<User> user1 = userService.getUserById(1);
+		user1.ifPresent(user::addContact);
 
-		//bankAccountService.saveBankAccount(bankAccount);
+		Optional<User> user2 = userService.getUserById(2);
+		user2.ifPresent(user::addContact);
+
+		// Le save User enregistre en cascade tous les objets liés (wallet et bank account)
+		User userToDelete = userService.saveUser(user);
+
+		// Ici une relation unidirectionnelle, donc c'est à la transaction d'enregister le lien.
 		transactionService.saveTransaction(transaction);
+*/
+/* DELETE
 
-
-
-
+		userService.deleteUserById(21);
+		assert(userService.getUserById(21).isEmpty());
+*/
 	}
 
 
