@@ -1,6 +1,7 @@
 package com.paymybuddy.PayMyBuddy.service;
 
 import com.paymybuddy.PayMyBuddy.model.User;
+import com.paymybuddy.PayMyBuddy.model.Wallet;
 import com.paymybuddy.PayMyBuddy.repository.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,12 +23,21 @@ public class UserService implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    WalletService walletService;
+
     @Transactional
     public boolean addUser(User user) {
         logger.info("adding a new user");
         if(userRepository.findByEmail(user.getEmail())==null) {
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+
+            Wallet wallet = new Wallet();
+            wallet.setBalance(0);
+            wallet.setUser(user);
+            user.setWallet(wallet);
             userRepository.save(user);
+
             logger.info("user added");
             return true;
         }

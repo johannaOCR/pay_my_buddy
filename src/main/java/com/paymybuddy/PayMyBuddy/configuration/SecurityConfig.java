@@ -8,10 +8,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -44,7 +41,7 @@ public class SecurityConfig  {
         http.csrf()
             .disable()
             .authorizeHttpRequests()
-                .requestMatchers("/login", "/register").permitAll()
+                .requestMatchers("/login", "/sign-up", "/saveUser").permitAll()
                 .anyRequest().authenticated()
                 .and()
                     .formLogin()
@@ -64,6 +61,7 @@ public class SecurityConfig  {
                     .deleteCookies("JSESSIONID")
                     .logoutSuccessUrl("/login");
                 //.and()
+
                     /*http.rememberMe()
                     .rememberMeParameter("remember-Me")
                     .key("somethingSecure")

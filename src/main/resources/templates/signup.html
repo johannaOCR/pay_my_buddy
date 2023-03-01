@@ -1,0 +1,43 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>PayMyBuddy</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+</head>
+<body>
+<div class = "container bg-light border" >
+    <div class="row justify-content-center jumbotron alert-success">
+        <h1>Sign Up</h1>
+    </div>
+    <form method="post" th:action="@{/saveUser}" th:object="${user}" >
+        <div  class="mb-3 col-12 row justify-content-center">
+            <label>
+                <input class="form-label" th:field="*{firstname}" type="text" name="firstname" placeholder="Firstname" required="">
+            </label>
+        </div>
+        <div class="mb-3 col-12 row justify-content-center">
+            <label>
+                <input class="form-label " th:field="*{lastname}" type="text" name="lastname" placeholder="Lastname" required="">
+            </label>
+        </div>
+        <div class="mb-3 col-12 row justify-content-center">
+            <label>
+                <input class="form-label" th:field="*{email}" type="email" name="email" placeholder="Email" required="">
+            </label>
+        </div>
+        <div class="mb-3 col-12 row justify-content-center">
+            <label>
+                <input class="form-label" th:field="*{password}" type="password" name="password" placeholder="Password" required="">
+            </label>
+        </div>
+        <div class="mb-3 col-12 row justify-content-center">
+        </div>
+        <div class="mb-5 col-12 row justify-content-center">
+        <button value="sign-up" type="submit" class="btn btn-primary" th:href="@{/saveUser}">Submit</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
