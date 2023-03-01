@@ -30,6 +30,7 @@ public class SecurityConfig  {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setPasswordEncoder(encoder());
         authProvider.setUserDetailsService(userService);
+        authProvider.setHideUserNotFoundExceptions(false);
         return authProvider;
     }
     @Bean
@@ -39,32 +40,35 @@ public class SecurityConfig  {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         http.csrf()
             .disable()
             .authorizeHttpRequests()
-            .requestMatchers("/profile/register", "/profile/saveUser")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
+                .requestMatchers("/login", "/register").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                    .loginPage("/login").permitAll()
+                    .formLogin()
+                    .loginPage("/login")
                     .usernameParameter("email")
-                    .passwordParameter("password")
+                    .passwordParameter("passcode")
+                    .loginProcessingUrl("/process-login")
                     .defaultSuccessUrl("/home",true)
-                .and()
-                .rememberMe()
-                    .rememberMeParameter("remember-Me")
-                    .key("somethingSecure")
-                    .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21))
+                    .failureUrl("/login?error=true")
+                    .permitAll()
                 .and()
                 .logout()
-                    .logoutUrl("/logout")
+                    .logoutUrl("/login?logout=true")
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
                     .clearAuthentication(true)
                     .invalidateHttpSession(true)
-                    .deleteCookies("JSESSIONID","remember-Me")
+                    .deleteCookies("JSESSIONID")
                     .logoutSuccessUrl("/login");
+                //.and()
+                    /*http.rememberMe()
+                    .rememberMeParameter("remember-Me")
+                    .key("somethingSecure")
+                    .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21))
+                .and()*/
         return http.build();
     }
 

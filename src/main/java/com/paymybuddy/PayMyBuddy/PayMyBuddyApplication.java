@@ -103,7 +103,7 @@ public class PayMyBuddyApplication implements CommandLineRunner {
 		user2.ifPresent(user::addContact);
 
 		// Le save User enregistre en cascade tous les objets liés (wallet et bank account)
-		User userToDelete = userService.saveUser(user);
+		userService.addUser(user);
 
 		// Ici une relation unidirectionnelle, donc c'est à la transaction d'enregister le lien.
 		transactionService.saveTransaction(transaction);
