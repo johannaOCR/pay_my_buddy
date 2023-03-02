@@ -1,13 +1,12 @@
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>PayMyBuddy</title>
+    <title>navbar</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
 </head>
 <body class="pt-0">
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand rounded bg-success  disabled" th:href="@{home}"> <p class="ml-3 mr-3 mt-1 mb-1 text-light">PayMyBuddy</p> </a>
 
@@ -37,25 +36,5 @@
         </ul>
     </div>
 </nav>
-<div class="row justify-content-center jumbotron alert-success">
-    <h1>Welcome to Pay My Buddy !</h1>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="form-group row">
-            <div class="col-sm">
-                <h2>Hello  <span th:text="${firstName}"></span> ! </h2>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group row">
-            <div class="col-sm">
-                <h3 class="jumbotron bg-light rounded">Your balance : <span th:text="${balance}"></span> €</h3>
-            </div>
-        </div>
-
-    </div>
-</div>
 </body>
 </html>

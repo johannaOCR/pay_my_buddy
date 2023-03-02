@@ -55,7 +55,7 @@ public class UserService implements UserDetailsService {
 
     /**
      * Return an Optional User by a given ID
-     * @param id
+     * @param id the user id to look for
      * @return Optional<User>
      */
     public Optional<User> getUserById(Integer id){
@@ -64,7 +64,7 @@ public class UserService implements UserDetailsService {
 
     /**
      * Save a Given User in DB
-     * @param user
+     * @param user the user object to save in DB
      * @return User saved
      */
     public User saveUser(User user) {
@@ -110,7 +110,6 @@ public class UserService implements UserDetailsService {
     }
 
     public User getUserByEmail(String email){
-        User user = userRepository.findByEmail(email);
-        return user;
+        return userRepository.findByEmail(email);
     }
 }
