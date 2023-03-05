@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>PayMyBuddy</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+</head>
+<body class="pt-0">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand rounded bg-success  disabled" th:href="@{home}"> <p class="ml-3 mr-3 mt-1 mb-1 text-light">PayMyBuddy</p> </a>
+
+    <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarText">
+        <div class="navbar-text mr-auto">
+        </div>
+        <ul class="navbar-nav">
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{home}">Home </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{transfer}">Transfer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" th:href="@{profile}">Profile<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{contact}">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{logout}">Log off</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid mb-3 col-12 justify-content-center ">
+    <div class="jumbotron alert-success text-center">
+        <h1>Profile page</h1>
+    </div>
+</div>
+<form class="container-fluid mb-3 row justify-content-center">
+    <h3 class="row col-lg-9">Your informations</h3>
+
+    <div class="row col-lg-10 bg-light rounded jumbotron">
+        <div class="col text-center">
+            <div>
+                <label>
+                    <h5 class="">Firstname : <span th:text="${user.getFirstname()}"></span> </h5>
+                </label>
+            </div>
+        </div>
+        <div class="col text-center">
+            <div>
+                <label>
+                    <h5 class="">Lastname : <span th:text="${user.getLastname()}"></span> </h5>
+                </label>
+            </div>
+        </div>
+        <div class="col text-center">
+            <div>
+                <label>
+                    <h5 class="">Email : <span th:text="${user.getEmail()}"></span> </h5>
+                </label>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<form class="container-fluid mb-3 row justify-content-center">
+    <h3 class="row col-lg-9">Bank transfer</h3>
+
+    <div class="row col-lg-10 bg-light rounded jumbotron">
+        <div class="col text-center">
+            <div>
+                <label>
+                    <h5 class="">Your balance : <span th:text="${wallet.getBalance()}"></span> €</h5>
+                </label>
+            </div>
+        </div>
+        <div class="col text-center">
+            <div th:if="${bankAccount.getBic()!=null and !bankAccount.getBic().empty}">
+                <label><h5>Your bank-account : </h5>
+                <label class="row ">BIC : <p th:text="${bankAccount.getBic()}"></p> </label>
+                <label class="row">IBAN : <p th:text="${bankAccount.getIban()}"></p> </label>
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-outline" >
+                <label><h5>Amount to transfer : </h5>
+                <i class="fas fa-dollar-sign trailing"></i>
+                <input type="number" th:value="${amount}" th:name="amount" placeholder="0€"  class="form-control form-icon-trailing" />
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <label for="submit"></label>
+            <button th:type="submit" class="btn-group-lg btn btn-block btn-success " id="submit">Transfer</button>
+        </div>
+    </div>
+</form>
+
+<form class="container-fluid mb-3 row justify-content-center">
+    <h3 class="row col-lg-9">Supply your balance</h3>
+
+    <div class="row col-lg-10 bg-light rounded jumbotron">
+        <div class="col text-center">
+            <div>
+                <label>
+                    <h5 class="">Your balance : <span th:text="${wallet.getBalance()}"></span> €</h5>
+                </label>
+            </div>
+        </div>
+        <div class="col text-center">
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="formNameOnCard" class="form-control" />
+                        <label class="form-label" for="formNameOnCard">Name on card</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="formCardNumber" class="form-control" />
+                        <label class="form-label" for="formCardNumber">Credit card number</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-3">
+                    <div class="form-outline">
+                        <input type="text" id="formExpiration" class="form-control" />
+                        <label class="form-label" for="formExpiration">Expiration</label>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-outline">
+                        <input type="text" id="formCVV" class="form-control" />
+                        <label class="form-label" for="formCVV">CVV</label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col">
+            <div class="form-outline" >
+                <label><h5>Amount to supply : </h5>
+                    <i class="fas fa-dollar-sign trailing"></i>
+                    <input type="number" th:value="${amount}" th:name="amount" placeholder="0€"  class="form-control form-icon-trailing" />
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <label for="submit"></label>
+            <button th:type="submit" class="btn-group-lg btn btn-block btn-success " id="submit">Transfer</button>
+        </div>
+    </div>
+</form>
+
+
+<form class="container-fluid mb-3 row justify-content-center">
+    <h3 class="row col-lg-9">Update your profile</h3>
+
+    <div class="row col-lg-10 bg-light rounded jumbotron">
+        <div class="col">
+            <label for="firstname">Firstname</label>
+            <input type="firstname" class="form-control" id="firstname"  th:placeholder="${user.getFirstname()}">
+        </div>
+        <div class="col">
+            <label for="lastname">Lastname</label>
+            <input type="lastname" class="form-control" id="lastname"  th:placeholder="${user.getLastname()}">
+        </div>
+        <div class="col">
+            <label for="bic">BIC</label>
+            <input type="bic" class="form-control" id="bic"  th:placeholder="${bankAccount.getBic()}">
+        </div>
+        <div class="col">
+            <label for="iban">IBAN</label>
+            <input type="iban" class="form-control" id="iban"  th:placeholder="${bankAccount.getIban()}">
+        </div>
+        <div class="col">
+            <label for="button"></label>
+            <button id="button" th:type="submit" class="btn-group-lg btn btn-block btn-success ">Update</button>
+        </div>
+
+    </div>
+
+</form>
+
+</body>
+</html>

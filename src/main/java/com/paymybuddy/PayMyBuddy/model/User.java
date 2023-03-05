@@ -44,7 +44,17 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "fk_user_contact_id")
     )
     private List<User> contacts = new ArrayList<>();
-
+/*
+    public User(int userId, String firstname, String lastname, String email, String password, Wallet wallet, List<User> contacts) {
+        this.userId = userId;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.wallet = wallet;
+        this.contacts = contacts;
+    }
+*/
     public int getUserId() {
         return userId;
     }

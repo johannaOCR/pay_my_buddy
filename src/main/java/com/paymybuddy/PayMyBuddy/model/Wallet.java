@@ -30,6 +30,18 @@ public class Wallet {
     @OneToMany(mappedBy = "walletCreditor")
     List<Transaction> creditorTransactions = new ArrayList<>();
 
+    public Wallet() {
+    }
+
+    public Wallet(int walletId, User user, BankAccount bankAccounts, float balance, List<Transaction> debtorTransactions, List<Transaction> creditorTransactions) {
+        this.walletId = walletId;
+        this.user = user;
+        this.bankAccounts = bankAccounts;
+        this.balance = balance;
+        this.debtorTransactions = debtorTransactions;
+        this.creditorTransactions = creditorTransactions;
+    }
+
     public int getWalletId() {
         return walletId;
     }

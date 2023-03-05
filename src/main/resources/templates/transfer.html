@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>PayMyBuddy</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+</head>
+<body class="pt-0">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand rounded bg-success  disabled" th:href="@{home}"> <p class="ml-3 mr-3 mt-1 mb-1 text-light">PayMyBuddy</p> </a>
+
+    <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarText">
+        <div class="navbar-text mr-auto">
+        </div>
+        <ul class="navbar-nav">
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{home}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" th:href="@{transfer}">Transfer<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{profile}">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{contact}">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{logout}">Log off</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid mb-3 col-12 justify-content-center ">
+    <div class="jumbotron alert-success text-center">
+        <h1>Transfer page</h1>
+    </div>
+</div>
+
+<form class="container-fluid mb-3 row justify-content-center" >
+    <h3 class="row col-lg-9">Send Monney</h3>
+    <button th:href="@{/contact}" class="btn btn-primary">Add Connexion</button>
+
+    <div class="row col-lg-10 bg-light rounded jumbotron"th:if="${contacts!=null and !contacts.empty}">
+        <div class="col">
+            <div>
+                <select class="custom-select col-12" aria-label="" th:name="contactId">
+                    <option selected>Select your contact here</option>
+                    <option th:each="contact:${contacts}"
+                            th:value="${contact.getEmail()}"
+                            th:text="${contact.getFirstname()+ ' '+ contact.getLastname()}">
+                    </option>
+                </select>
+                <span class="col col-12" th:unless="${contacts!=null and !contacts.empty}">
+                <p class="text-center alert-danger">*please choose contact</p>
+            </span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-outline" >
+                <i class="fas fa-dollar-sign trailing"></i>
+                <input type="number" th:value="${amount}" th:name="amount" placeholder="0€"  class="form-control form-icon-trailing" />
+            </div>
+        </div>
+        <div class="col">
+            <button th:type="submit" class="btn btn-block btn-success ">Pay</button>
+        </div>
+    </div>
+</form>
+
+<div class="container  col col-lg-10">
+    <h3>My transactions</h3>
+    <div th:if="${transactions!=null and !transactions.empty}">
+        <table class="table table-striped table-hover">
+            <tr class="table-success">
+                <th>Debtor</th>
+                <th>Creditor</th>
+                <th>Description</th>
+                <th>Amount</th>
+            </tr>
+            <tr th:each="transaction:${transactions}" >
+                <th th:text="${transaction.getNameCreditor()}"></th>
+                <th th:text="${transaction.getNameDebtor()}"></th>
+                <th th:text="${transaction.getDescription()}"></th>
+                <th th:text="${transaction.getAmount()}+'€'"></th>
+            </tr>
+        </table>
+    </div>
+    <div th:unless="${transactions!=null and !transactions.empty}">
+        <p>No transactions done</p>
+    </div>
+</div>
+</body>
+</html>

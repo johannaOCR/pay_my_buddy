@@ -1,5 +1,8 @@
 package com.paymybuddy.PayMyBuddy.service;
 
+import com.paymybuddy.PayMyBuddy.dto.ContactDTO;
+import com.paymybuddy.PayMyBuddy.dto.TransactionDTO;
+import com.paymybuddy.PayMyBuddy.model.Transaction;
 import com.paymybuddy.PayMyBuddy.model.User;
 import com.paymybuddy.PayMyBuddy.model.Wallet;
 import com.paymybuddy.PayMyBuddy.repository.UserRepository;
@@ -14,6 +17,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @DynamicUpdate
@@ -111,5 +117,22 @@ public class UserService implements UserDetailsService {
 
     public User getUserByEmail(String email){
         return userRepository.findByEmail(email);
+    }
+
+    @Transactional
+    public List<ContactDTO> getContactsByUser(Principal principal) {
+        User user = this.getUserByEmail(principal.getName());
+        List<User> contacts = user.getContacts();
+        List<ContactDTO> contactsDTO = new ArrayList<>();
+        contacts.forEach(contact -> {
+            contactsDTO.add(
+                    new ContactDTO(
+                            contact.getFirstname(),
+                            contact.getLastname(),
+                            contact.getEmail()
+                    )
+            );
+        });
+        return contactsDTO;
     }
 }

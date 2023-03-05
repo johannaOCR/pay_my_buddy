@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.text.DecimalFormat;
+
 @Controller
 @RequestMapping("/home")
 public class HomeController {
@@ -20,8 +22,9 @@ public class HomeController {
     @GetMapping
     public String home(Principal principal, Model model) {
         User connectedUser = userService.getUserByEmail(principal.getName());
-        model.addAttribute("firstName", connectedUser.getFirstname());
-        model.addAttribute("balance", connectedUser.getWallet().getBalance());
+        model.addAttribute("firstname", connectedUser.getFirstname());
+        DecimalFormat df = new DecimalFormat("0.00");
+        model.addAttribute("balance", df.format(connectedUser.getWallet().getBalance()));
         return "home";
     }
 }
