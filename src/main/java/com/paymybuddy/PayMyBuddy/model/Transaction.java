@@ -1,18 +1,25 @@
 package com.paymybuddy.PayMyBuddy.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.DynamicUpdate;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 @Entity
+@DynamicUpdate
 @Table(name = "money_transaction")
-@IdClass(TransactionId.class)
+
 public  class Transaction {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "transaction_id")
+    private int transactionId;
+
     @ManyToOne
     @JoinColumn(name = "wallet_creditor_id", referencedColumnName = "wallet_id")
     private Wallet walletCreditor;
 
-    @Id
+
     @ManyToOne
     @JoinColumn(name = "wallet_debtor_id", referencedColumnName = "wallet_id")
     private Wallet walletDebtor;
@@ -67,7 +74,10 @@ public  class Transaction {
     public Date getDate() {
         return date;
     }
-
+    public String getDateFormated() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        return dateFormat.format(this.date);
+    }
     public void setDate(Date date) {
         this.date = date;
     }

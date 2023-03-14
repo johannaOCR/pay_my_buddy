@@ -62,8 +62,13 @@ public class BankAccountService {
      * @param id
      * return void
      */
-    public void deleteBankAccountById(Integer id){
+    public boolean deleteBankAccountById(Integer id) {
         bankAccountRepository.deleteById(id);
+        if(bankAccountRepository.findById(id).isPresent()) {
+            return true;
+        } else{
+            return false;
+        }
     }
 
 

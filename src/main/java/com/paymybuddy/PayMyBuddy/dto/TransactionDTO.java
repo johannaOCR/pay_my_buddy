@@ -1,17 +1,21 @@
 package com.paymybuddy.PayMyBuddy.dto;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 
 public class TransactionDTO {
     private String description;
     private String nameDebtor;
     private String nameCreditor;
     private String amount;
+    private String date;
 
-    public TransactionDTO(String description, String nameDebtor, String nameCreditor, float amount) {
+    public TransactionDTO(String description, String nameDebtor, String nameCreditor, float amount, String date) {
         this.description = description;
         this.nameDebtor = nameDebtor;
         this.nameCreditor = nameCreditor;
+        this.date = date;
+
         DecimalFormat df = new DecimalFormat("0.00"); // import java.text.DecimalFormat;
         this.amount = df.format(amount);
     }
@@ -51,6 +55,22 @@ public class TransactionDTO {
     public void setAmount(double amount) {
         DecimalFormat df = new DecimalFormat("0.00"); // import java.text.DecimalFormat;
         this.amount = df.format(amount);
+    }
+
+    public void setNameDebtor(String nameDebtor) {
+        this.nameDebtor = nameDebtor;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     @Override

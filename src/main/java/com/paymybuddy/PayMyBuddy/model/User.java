@@ -1,6 +1,7 @@
 package com.paymybuddy.PayMyBuddy.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,6 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
+@DynamicUpdate
 @Table(name = "user")
 public class User implements UserDetails {
     @Id

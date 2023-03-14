@@ -1,11 +1,13 @@
 package com.paymybuddy.PayMyBuddy.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@DynamicUpdate
 @Table(name = "wallet")
 public class Wallet {
     @Id
@@ -90,13 +92,4 @@ public class Wallet {
         this.creditorTransactions = creditorTransactions;
     }
 
-    @Override
-    public String toString() {
-        return "Wallet{" +
-                "walletId=" + walletId +
-                ", user=" + user.getUserId() +
-                ", bankAccounts=" + bankAccounts.getBankAccountId() +
-                ", balance=" + balance +
-                '}';
-    }
 }

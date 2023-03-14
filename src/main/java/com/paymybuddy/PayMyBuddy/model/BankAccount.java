@@ -1,9 +1,11 @@
 package com.paymybuddy.PayMyBuddy.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 
 @Entity
+@DynamicUpdate
 @Table(name = "bank_account")
 public class BankAccount {
     @Id
@@ -17,7 +19,7 @@ public class BankAccount {
     @Column(name = "bic")
     private String bic;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "fk_wallet_id", referencedColumnName = "wallet_id")
     private Wallet wallet;
 
@@ -45,6 +47,7 @@ public class BankAccount {
         this.bic = bic;
     }
 
+
     public Wallet getWallet() {
         return wallet;
     }
@@ -59,7 +62,7 @@ public class BankAccount {
                 "bankAccountId=" + bankAccountId +
                 ", iban='" + iban + '\'' +
                 ", bic='" + bic + '\'' +
-                ", wallet=" + wallet.toString() +
+                ", wallet=" + wallet +
                 '}';
     }
 }

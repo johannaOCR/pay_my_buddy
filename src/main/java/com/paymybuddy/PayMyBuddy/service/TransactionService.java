@@ -89,14 +89,25 @@ public class TransactionService {
                 User user = userService.getUserById(id).get();
                 Wallet wallet = user.getWallet();
                transactions =  transactionRepository.findAllByWalletCreditorId(wallet.getWalletId());
-               transactions.addAll(transactionRepository.findAllByWalletDebtorId(wallet.getWalletId()));
+                List<Transaction> transactionsDebtor = new ArrayList<>();
+               transactionsDebtor = transactionRepository.findAllByWalletDebtorId(wallet.getWalletId());
+               List<Transaction> transactionsFinal = new ArrayList<>();
+
+                for (Transaction transaction : transactionsDebtor) {
+                    if(!transactions.contains(transaction)){
+                        transactionsFinal.add(transaction);
+                    }
+                }
+               transactions.addAll(transactionsFinal);
                transactions.forEach(transaction -> {
                            transactionDTO.add(
                                    new  TransactionDTO(
                                         transaction.getDescription(),
                                            transaction.getWalletDebtor().getUser().getFirstname() + " " + transaction.getWalletDebtor().getUser().getLastname(),
                                            transaction.getWalletCreditor().getUser().getFirstname() + " " + transaction.getWalletCreditor().getUser().getLastname(),
-                                        transaction.getAmount())
+                                        transaction.getAmount(),
+                                           transaction.getDateFormated()
+                                   )
                            );
                }
                );

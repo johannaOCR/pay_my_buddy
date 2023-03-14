@@ -73,6 +73,7 @@ public class UserService implements UserDetailsService {
      * @param user the user object to save in DB
      * @return User saved
      */
+    @Transactional
     public User saveUser(User user) {
         return userRepository.save(user);
     }

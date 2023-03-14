@@ -16,8 +16,8 @@ public interface TransactionRepository extends CrudRepository<Transaction,Intege
      * @param id
      * @return
      */
-    @Query(value = "select * from money_transaction where wallet_creditor_id=?1", nativeQuery = true)
-    public List<Transaction> findAllByWalletCreditorId(int id);
+    @Query(value = "select distinct * from money_transaction where wallet_creditor_id=?1", nativeQuery = true)
+    List<Transaction> findAllByWalletCreditorId(int id);
 
 
     /**
@@ -25,6 +25,6 @@ public interface TransactionRepository extends CrudRepository<Transaction,Intege
      * @param id
      * @return
      */
-    @Query(value = "select * from money_transaction where wallet_debtor_id=?1" , nativeQuery = true)
-    public List<Transaction> findAllByWalletDebtorId(int id);
+    @Query(value = "select distinct * from money_transaction where wallet_debtor_id=?1" , nativeQuery = true)
+    List<Transaction> findAllByWalletDebtorId(int id);
 }
