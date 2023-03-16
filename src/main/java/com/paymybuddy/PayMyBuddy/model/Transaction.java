@@ -41,16 +41,7 @@ public  class Transaction {
 
     public Transaction() {
     }
-/*
-    public Transaction(Wallet walletCreditor, Wallet walletDebtor, Date date, float amount, String description, boolean isBankTransaction) {
-        this.walletCreditor = walletCreditor;
-        this.walletDebtor = walletDebtor;
-        this.date = date;
-        this.amount = amount;
-        this.description = description;
-        this.isBankTransaction = isBankTransaction;
-    }
-*/
+
     public Wallet getWalletCreditor() {
         return walletCreditor;
     }
@@ -75,7 +66,7 @@ public  class Transaction {
         return date;
     }
     public String getDateFormated() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return dateFormat.format(this.date);
     }
     public void setDate(Date date) {

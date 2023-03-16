@@ -186,4 +186,9 @@ public class UserController {
         return "redirect:/profile";
     }
 
+    @PostMapping("deleteUser")
+    public String deleteUser(Principal principal){
+        userService.deleteUser(userService.getUserByEmail(principal.getName()));
+        return "redirect:/login";
+    }
 }

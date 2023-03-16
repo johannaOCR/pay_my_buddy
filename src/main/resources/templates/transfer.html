@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>PayMyBuddy</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet">
 </head>
 <body class="pt-0">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -43,38 +42,39 @@
         <h1>Transfer page</h1>
     </div>
 </div>
-
-<form class="container-fluid mb-3 row justify-content-center" >
+<form class="row col-lg-10 justify-content-end " method="get" th:action="@{/contact}" >
+    <button th:href="@{/contact}"  class="btn btn-primary">+ Add Connexion</button>
+</form>
+<form class="container-fluid mb-3 row justify-content-center" method="POST" th:action="@{/addTransfer}" >
     <h3 class="row col-lg-9">Send Monney</h3>
-    <button th:href="@{/contact}"  class="btn btn-primary">Add Connexion</button>
-
     <div class="row col-lg-10 bg-light rounded jumbotron"th:if="${contacts!=null and !contacts.empty}">
         <div class="col">
-            <div>
-                <select class="custom-select col-12" aria-label="" th:name="contactId">
-                    <option selected>Select your contact here</option>
-                    <option th:each="contact:${contacts}"
-                            th:value="${contact.getEmail()}"
-                            th:text="${contact.getFirstname()+ ' '+ contact.getLastname()}">
-                    </option>
-                </select>
-                <span class="col col-12" th:unless="${contacts!=null and !contacts.empty}">
+            <select class="custom-select col-12" aria-label="" name="emailContact">
+                <option selected>Select your contact here</option>
+                <option th:each="contact:${contacts}"
+                th:value="${contact.getEmail()}"
+                th:text="${contact.getFirstname()+ ' '+ contact.getLastname()}">
+                </option>
+            </select>
+            <span class="col col-12" th:unless="${contacts!=null and !contacts.empty}">
                 <p class="text-center alert-danger">*please choose contact</p>
             </span>
-            </div>
+        </div>
+        <div class="col">
+            <textarea id="description" class="form-control" name="description" rows="2" >Description here...</textarea>
         </div>
         <div class="col">
             <div class="form-outline" >
                 <i class="fas fa-dollar-sign trailing"></i>
-                <input type="number" th:value="${amount}" th:name="amount" placeholder="0€"  class="form-control form-icon-trailing" />
+                <input type="number"  name="amount" placeholder="0€"  class="form-control form-icon-trailing" />
             </div>
         </div>
         <div class="col">
-            <button th:type="submit" class="btn btn-block btn-success ">Pay</button>
+            <button type="submit" class="btn btn-block btn-success " th:href="@{/addTransfer}">Pay</button>
         </div>
     </div>
 </form>
-
+<p class="text-danger" th:text="${badAmount}" ></p>
 <div class="container  col col-lg-10">
     <h3>My transactions</h3>
     <div th:if="${transactions!=null and !transactions.empty}">
@@ -85,7 +85,6 @@
                 <th>Creditor</th>
                 <th>Description</th>
                 <th>Amount</th>
-
             </tr>
             <tr th:each="transaction:${transactions}" >
                 <th th:text="${transaction.getDate()}"></th>
