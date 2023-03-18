@@ -41,10 +41,6 @@ public class UserController {
     @PostMapping("/saveUser")
     public String saveUser(@ModelAttribute User user) {
         logger.info("Try to create new user" + user.toString());
-        Wallet wallet = new Wallet();
-        user.setWallet(wallet);
-        BankAccount bankAccount = new BankAccount();
-        wallet.setBankAccounts(bankAccount);
         boolean isUserCreated = userService.addUser(user);
         if(isUserCreated){
             return "redirect:/login";

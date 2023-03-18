@@ -3,8 +3,10 @@ package com.paymybuddy.PayMyBuddy;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+
 @SpringBootTest
-class PayMyBuddyApplicationTests {
+class AppApplicationTests {
+
 	@Test
 	void contextLoads() {
 	}

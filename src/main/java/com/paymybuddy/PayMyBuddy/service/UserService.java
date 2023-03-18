@@ -2,6 +2,7 @@ package com.paymybuddy.PayMyBuddy.service;
 
 import com.paymybuddy.PayMyBuddy.dto.ContactDTO;
 import com.paymybuddy.PayMyBuddy.dto.TransactionDTO;
+import com.paymybuddy.PayMyBuddy.model.BankAccount;
 import com.paymybuddy.PayMyBuddy.model.Transaction;
 import com.paymybuddy.PayMyBuddy.model.User;
 import com.paymybuddy.PayMyBuddy.model.Wallet;
@@ -37,10 +38,11 @@ public class UserService implements UserDetailsService {
         logger.info("adding a new user");
         if(userRepository.findByEmail(user.getEmail())==null) {
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-
+            BankAccount bankAccount = new BankAccount();
             Wallet wallet = new Wallet();
             wallet.setBalance(0);
             wallet.setUser(user);
+            wallet.setBankAccounts(bankAccount);
             user.setWallet(wallet);
             userRepository.save(user);
 
