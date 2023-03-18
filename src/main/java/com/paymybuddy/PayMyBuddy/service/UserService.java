@@ -33,6 +33,11 @@ public class UserService implements UserDetailsService {
     @Autowired
     WalletService walletService;
 
+    /**
+     * Save a Given user in the DB and check process
+     * @param user
+     * @return true if the user saved, false if is not
+     */
     @Transactional
     public boolean addUser(User user) {
         logger.info("adding a new user");
@@ -53,13 +58,6 @@ public class UserService implements UserDetailsService {
         return false;
     }
 
-    /**
-     * Return all users in DB
-     * @return Iterable<User>
-     */
-    public Iterable<User> getUsers(){
-        return userRepository.findAll();
-    }
 
     /**
      * Return an Optional User by a given ID
@@ -89,22 +87,7 @@ public class UserService implements UserDetailsService {
         userRepository.delete(user);
     }
 
-    /**
-     * Delete all User in DB
-     *
-     */
-    private void deleteAllUsers(){
-        userRepository.deleteAll();
-    }
 
-    /**
-     * Delete User by a ID given
-     * @param id
-     * return void
-     */
-    public void deleteUserById(Integer id){
-        userRepository.deleteById(id);
-    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -119,6 +102,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User getUserByEmail(String email){
+        logger.info("getting user by email : " + email);
         return userRepository.findByEmail(email);
     }
 
