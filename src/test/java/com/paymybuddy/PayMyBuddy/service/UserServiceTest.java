@@ -1,6 +1,8 @@
 package com.paymybuddy.PayMyBuddy.service;
 import com.paymybuddy.PayMyBuddy.dto.ContactDTO;
+import com.paymybuddy.PayMyBuddy.model.BankAccount;
 import com.paymybuddy.PayMyBuddy.model.User;
+import com.paymybuddy.PayMyBuddy.model.Wallet;
 import com.paymybuddy.PayMyBuddy.repository.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,7 +16,6 @@ import static org.mockito.Mockito.*;
 import static org.mockito.ArgumentMatchers.any;
 
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.security.Principal;
@@ -30,8 +31,7 @@ public class UserServiceTest {
     private UserService userService;
     @Mock
     private UserRepository userRepository;
-    @Mock
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Mock
     private Principal principal;
 
@@ -146,7 +146,34 @@ public class UserServiceTest {
         verify(userRepository,times(1)).delete(user);
     }
 
+    @Test
+    void testUpdateProfile(){
+        User user = new User();
+        user.setFirstname("testFN");
+        user.setLastname("testLN");
+        user.setPassword("testPW");
+        user.setEmail("testEM@mail.com");
+        user.setUserId(1);
+
+        Wallet wallet = new Wallet();
+        wallet.setUser(user);
+        wallet.setBalance(50);
+        wallet.setWalletId(1);
+        user.setWallet(wallet);
+
+        BankAccount bankAccount = new BankAccount();
+        bankAccount.setWallet(wallet);
+        bankAccount.setIban("testIBAN");
+        bankAccount.setBic("testBIC");
+        bankAccount.setBankAccountId(1);
+        wallet.setBankAccounts(bankAccount);
 
 
+        when(userRepository.findByEmail(any())).thenReturn(user);
+        when(principal.getName()).thenReturn("testEM@mail.com");
+
+        boolean response = userService.updateProfil("newFirstname", "newLastname","","TEST",principal);
+        assertThat(response).isTrue();
+    }
 }
 

@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @DynamicUpdate
@@ -57,7 +58,35 @@ public class UserService implements UserDetailsService {
         logger.error("Email address already used for an account");
         return false;
     }
+    public boolean updateProfil(String firstname, String lastname, String iban, String bic, Principal principal){
+        boolean isUpdated = false;
 
+        User user = this.getUserByEmail(principal.getName());
+        if(!Objects.equals(lastname, "") || !Objects.equals(firstname, "") || !Objects.equals(bic, "") || !Objects.equals(iban, "")){
+            if(!Objects.equals(lastname, "")){
+                user.setLastname(lastname);
+                isUpdated = true;
+                logger.info("lastname updated : " + lastname);
+            }
+            if(!Objects.equals(firstname, "")){
+                user.setFirstname(firstname);
+                isUpdated = true;
+                logger.info("firstname updated : " + firstname);
+            }
+            if(!Objects.equals(bic, "")){
+                user.getWallet().getBankAccounts().setBic(bic);
+                isUpdated = true;
+                logger.info("bic updated : " + bic);
+            }
+            if(!Objects.equals(iban, "")){
+                user.getWallet().getBankAccounts().setIban(iban);
+                isUpdated = true;
+                logger.info("iban updated : " + iban);
+            }
+            this.saveUser(user);
+        }
+        return isUpdated;
+    }
 
     /**
      * Return an Optional User by a given ID
