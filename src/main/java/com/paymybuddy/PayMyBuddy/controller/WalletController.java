@@ -3,6 +3,7 @@ package com.paymybuddy.PayMyBuddy.controller;
 import com.paymybuddy.PayMyBuddy.model.User;
 import com.paymybuddy.PayMyBuddy.model.Wallet;
 import com.paymybuddy.PayMyBuddy.service.UserService;
+import com.paymybuddy.PayMyBuddy.service.WalletService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class WalletController {
     private static final Logger logger = LogManager.getLogger("UserController");
 
     @Autowired
-    private UserService userService;
+    private WalletService   walletService;
 
     @PostMapping("/supplyBalance")
     public String supplyBalance(
@@ -27,10 +28,7 @@ public class WalletController {
             @RequestParam (name="CVV") String CVV,
             @RequestParam (name="amount") float amount,
             Principal principal ){
-        User user = userService.getUserByEmail(principal.getName());
-        Wallet wallet = user.getWallet();
-        wallet.setBalance(wallet.getBalance()+amount);
-        userService.saveUser(user);
+    walletService.supplyWalletBalance(principal,amount);
         return "redirect:/profile";
     }
 }

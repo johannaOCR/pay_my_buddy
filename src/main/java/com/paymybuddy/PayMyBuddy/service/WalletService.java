@@ -1,10 +1,13 @@
 package com.paymybuddy.PayMyBuddy.service;
 
+import com.paymybuddy.PayMyBuddy.model.User;
 import com.paymybuddy.PayMyBuddy.model.Wallet;
 import com.paymybuddy.PayMyBuddy.repository.WalletRepository;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.security.Principal;
 import java.util.Optional;
 
 @DynamicUpdate
@@ -12,60 +15,24 @@ import java.util.Optional;
 public class WalletService {
 
     @Autowired
-    private WalletRepository walletRepository;
+    private UserService userService;
 
     /**
-     * Return all wallets in DB
-     * @return Iterable<Wallet>
+     * Supply the wallet balance
+     * @param principal
+     * @param amount
+     * @return
      */
-    public Iterable<Wallet> getWallets(){
-        return walletRepository.findAll();
+    public boolean supplyWalletBalance(Principal principal, float amount){
+        boolean response = false;
+        if(principal != null && amount>0){
+            User user = userService.getUserByEmail(principal.getName());
+            Wallet wallet = user.getWallet();
+            wallet.setBalance(wallet.getBalance()+amount);
+            userService.saveUser(user);
+            response = true;
+        }
+        return response;
     }
-
-    /**
-     * Return an Optional Wallet by a given ID
-     * @param id
-     * @return Optional<Wallet>
-     */
-
-    public Optional<Wallet> getWalletById(Integer id){
-        return walletRepository.findById(id);
-    }
-
-    /**
-     * Save a Given wallet in DB
-     * @param wallet
-     * @return Wallet saved
-     */
-    public Wallet saveWallet(Wallet wallet) {
-        return walletRepository.save(wallet);
-    }
-
-    /**
-     * Delete a given Wallet in DB
-     * @param wallet
-     * return void
-     */
-    public void deleteWallet(Wallet wallet){
-        walletRepository.delete(wallet);
-    }
-
-    /**
-     * Delete all Wallet in DB
-     *
-     */
-    private void deleteAllWallets(){
-        walletRepository.deleteAll();
-    }
-
-    /**
-     * Delete Wallet by a ID given
-     * @param id
-     * return void
-     */
-    public void deleteWalletById(Integer id){
-        walletRepository.deleteById(id);
-    }
-
 
 }
