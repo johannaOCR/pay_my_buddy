@@ -19,7 +19,7 @@ public class BankAccountService {
     @Autowired
     private UserService userService;
 
-    public Boolean deleteBankAccount(Principal principal){
+    public Boolean deleteBankAccount(Principal principal) {
         User user = userService.getUserByEmail(principal.getName());
         boolean response = false;
         if (user != null) {
@@ -32,10 +32,10 @@ public class BankAccountService {
         return response;
     }
 
-    public Boolean addBankAccount(String bic, String iban, Principal principal){
+    public Boolean addBankAccount(String bic, String iban, Principal principal) {
         boolean response = false;
         User user = userService.getUserByEmail(principal.getName());
-        if(user!= null) {
+        if (user != null) {
             BankAccount bankAccount = new BankAccount();
             bankAccount.setIban(iban);
             bankAccount.setBic(bic);
@@ -47,8 +47,10 @@ public class BankAccountService {
         }
         return response;
     }
+
     /**
      * Save a Given BankAccount in DB
+     *
      * @param bankAccount
      * @return BankAccount saved
      */
@@ -58,16 +60,12 @@ public class BankAccountService {
 
     /**
      * Delete BankAccount by a ID given
-     * @param id
-     * return void
+     *
+     * @param id return void
      */
     public boolean deleteBankAccountById(Integer id) {
         bankAccountRepository.deleteById(id);
-        if(bankAccountRepository.findById(id).isPresent()) {
-            return true;
-        } else{
-            return false;
-        }
+        return bankAccountRepository.findById(id).isPresent();
     }
 
 

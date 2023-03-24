@@ -1,9 +1,6 @@
 package com.paymybuddy.PayMyBuddy.service;
 
 import com.paymybuddy.PayMyBuddy.dto.ContactDTO;
-import com.paymybuddy.PayMyBuddy.dto.TransactionDTO;
-import com.paymybuddy.PayMyBuddy.model.BankAccount;
-import com.paymybuddy.PayMyBuddy.model.Transaction;
 import com.paymybuddy.PayMyBuddy.model.User;
 import com.paymybuddy.PayMyBuddy.model.Wallet;
 import com.paymybuddy.PayMyBuddy.repository.UserRepository;
@@ -27,30 +24,30 @@ import java.util.Optional;
 @DynamicUpdate
 @Service
 public class UserService implements UserDetailsService {
+
     private static final Logger logger = LogManager.getLogger("UserService");
+
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    WalletService walletService;
-
     /**
      * Save a Given user in the DB and check process
+     *
      * @param user
      * @return true if the user saved, false if is not
      */
     @Transactional
     public boolean addUser(User user) {
         logger.info("adding a new user");
-        if(userRepository.findByEmail(user.getEmail())==null) {
+        if (userRepository.findByEmail(user.getEmail()) == null) {
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-            BankAccount bankAccount = new BankAccount();
+            user = userRepository.save(user);
             Wallet wallet = new Wallet();
             wallet.setBalance(0);
             wallet.setUser(user);
-            wallet.setBankAccounts(bankAccount);
             user.setWallet(wallet);
             userRepository.save(user);
+
 
             logger.info("user added");
             return true;
@@ -58,27 +55,28 @@ public class UserService implements UserDetailsService {
         logger.error("Email address already used for an account");
         return false;
     }
-    public boolean updateProfil(String firstname, String lastname, String iban, String bic, Principal principal){
+
+    public boolean updateProfil(String firstname, String lastname, String iban, String bic, Principal principal) {
         boolean isUpdated = false;
 
         User user = this.getUserByEmail(principal.getName());
-        if(!Objects.equals(lastname, "") || !Objects.equals(firstname, "") || !Objects.equals(bic, "") || !Objects.equals(iban, "")){
-            if(!Objects.equals(lastname, "")){
+        if (!Objects.equals(lastname, "") || !Objects.equals(firstname, "") || !Objects.equals(bic, "") || !Objects.equals(iban, "")) {
+            if (!Objects.equals(lastname, "")) {
                 user.setLastname(lastname);
                 isUpdated = true;
                 logger.info("lastname updated : " + lastname);
             }
-            if(!Objects.equals(firstname, "")){
+            if (!Objects.equals(firstname, "")) {
                 user.setFirstname(firstname);
                 isUpdated = true;
                 logger.info("firstname updated : " + firstname);
             }
-            if(!Objects.equals(bic, "")){
+            if (!Objects.equals(bic, "") && bic != null) {
                 user.getWallet().getBankAccounts().setBic(bic);
                 isUpdated = true;
                 logger.info("bic updated : " + bic);
             }
-            if(!Objects.equals(iban, "")){
+            if (!Objects.equals(iban, "") && iban != null) {
                 user.getWallet().getBankAccounts().setIban(iban);
                 isUpdated = true;
                 logger.info("iban updated : " + iban);
@@ -90,15 +88,17 @@ public class UserService implements UserDetailsService {
 
     /**
      * Return an Optional User by a given ID
+     *
      * @param id the user id to look for
      * @return Optional<User>
      */
-    public Optional<User> getUserById(Integer id){
+    public Optional<User> getUserById(Integer id) {
         return userRepository.findById(id);
     }
 
     /**
      * Save a Given User in DB
+     *
      * @param user the user object to save in DB
      * @return User saved
      */
@@ -109,13 +109,12 @@ public class UserService implements UserDetailsService {
 
     /**
      * Delete a given User in DB
-     * @param user
-     * return void
+     *
+     * @param user return void
      */
-    public void deleteUser(User user){
+    public void deleteUser(User user) {
         userRepository.delete(user);
     }
-
 
 
     @Override
@@ -130,7 +129,7 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public User getUserByEmail(String email){
+    public User getUserByEmail(String email) {
         logger.info("getting user by email : " + email);
         return userRepository.findByEmail(email);
     }

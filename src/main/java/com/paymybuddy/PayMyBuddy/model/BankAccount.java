@@ -47,7 +47,6 @@ public class BankAccount {
         this.bic = bic;
     }
 
-
     public Wallet getWallet() {
         return wallet;
     }

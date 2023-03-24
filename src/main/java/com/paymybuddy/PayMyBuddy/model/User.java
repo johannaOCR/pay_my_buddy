@@ -24,7 +24,7 @@ public class User implements UserDetails {
     @Column(name = "lastname")
     private String lastname;
 
-    @Column(name="email", unique = true)
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "password")
@@ -46,17 +46,7 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "fk_user_contact_id")
     )
     private List<User> contacts = new ArrayList<>();
-/*
-    public User(int userId, String firstname, String lastname, String email, String password, Wallet wallet, List<User> contacts) {
-        this.userId = userId;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.password = password;
-        this.wallet = wallet;
-        this.contacts = contacts;
-    }
-*/
+
     public int getUserId() {
         return userId;
     }
@@ -98,6 +88,10 @@ public class User implements UserDetails {
         return this.password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String getUsername() {
         return this.email;
@@ -123,10 +117,6 @@ public class User implements UserDetails {
         return true;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public Wallet getWallet() {
         return wallet;
     }
@@ -150,6 +140,7 @@ public class User implements UserDetails {
     public void removeContact(User user) {
         contacts.remove(user);
     }
+
     @Override
     public String toString() {
         return "User{" +

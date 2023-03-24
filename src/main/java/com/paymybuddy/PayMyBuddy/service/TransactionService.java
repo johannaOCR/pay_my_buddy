@@ -14,12 +14,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @DynamicUpdate
 @Service
 public class TransactionService {
+
     private static final Logger logger = LogManager.getLogger("TransactionService");
+
     @Autowired
     private TransactionRepository transactionRepository;
 
@@ -103,12 +107,12 @@ public class TransactionService {
         return response;
     }
 
-    public boolean addTransactionToBank(Principal principal, float amount){
+    public boolean addTransactionToBank(Principal principal, float amount) {
         boolean response = false;
-        if(principal!=null){
+        if (principal != null) {
             User user = userService.getUserByEmail(principal.getName());
             Wallet wallet = user.getWallet();
-            if(wallet.getBalance()>=amount) {
+            if (wallet.getBalance() >= amount) {
                 BankAccount bankAccount = wallet.getBankAccounts();
 
                 // création de la transaction
@@ -121,7 +125,7 @@ public class TransactionService {
                 transaction.setDate(new Date());
 
                 // soustraction du montant sur la balance
-                wallet.setBalance(wallet.getBalance()-amount);
+                wallet.setBalance(wallet.getBalance() - amount);
                 logger.info(wallet.getBalance());
                 userService.saveUser(user);
                 this.saveTransaction(transaction);

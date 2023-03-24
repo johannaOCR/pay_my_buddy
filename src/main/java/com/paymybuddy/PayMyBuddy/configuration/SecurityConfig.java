@@ -12,24 +12,23 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import java.util.concurrent.TimeUnit;
-
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig  {
+public class SecurityConfig {
 
     @Autowired
     private UserService userService;
 
     @Bean
-    public AuthenticationProvider daoAuthenticationProvider(){
+    public AuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setPasswordEncoder(encoder());
         authProvider.setUserDetailsService(userService);
         authProvider.setHideUserNotFoundExceptions(false);
         return authProvider;
     }
+
     @Bean
     public BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
@@ -39,34 +38,27 @@ public class SecurityConfig  {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.csrf()
-            .disable()
-            .authorizeHttpRequests()
+                .disable()
+                .authorizeHttpRequests()
                 .requestMatchers("/login", "/sign-up", "/saveUser").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                    .formLogin()
-                    .loginPage("/login")
-                    .usernameParameter("email")
-                    .passwordParameter("passcode")
-                    .loginProcessingUrl("/process-login")
-                    .defaultSuccessUrl("/home",true)
-                    .failureUrl("/login?error=true")
-                    .permitAll()
+                .formLogin()
+                .loginPage("/login")
+                .usernameParameter("email")
+                .passwordParameter("passcode")
+                .loginProcessingUrl("/process-login")
+                .defaultSuccessUrl("/home", true)
+                .failureUrl("/login?error=true")
+                .permitAll()
                 .and()
                 .logout()
-                    .logoutUrl("/login?logout=true")
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
-                    .clearAuthentication(true)
-                    .invalidateHttpSession(true)
-                    .deleteCookies("JSESSIONID")
-                    .logoutSuccessUrl("/login");
-                //.and()
-
-                    /*http.rememberMe()
-                    .rememberMeParameter("remember-Me")
-                    .key("somethingSecure")
-                    .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21))
-                .and()*/
+                .logoutUrl("/login?logout=true")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessUrl("/login");
         return http.build();
     }
 

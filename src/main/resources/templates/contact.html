@@ -9,12 +9,12 @@
 </head>
 <body class="pt-0">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand rounded bg-success  disabled" th:href="@{home}"> <p class="ml-3 mr-3 mt-1 mb-1 text-light">PayMyBuddy</p> </a>
-
-    <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand rounded bg-success  disabled" th:href="@{home}"><p class="ml-3 mr-3 mt-1 mb-1 text-light">
+        PayMyBuddy</p></a>
+    <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarText"
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarText">
         <div class="navbar-text mr-auto">
         </div>
@@ -37,30 +37,33 @@
         </ul>
     </div>
 </nav>
-
 <div class="container-fluid mb-3 col-12 justify-content-center ">
     <div class="jumbotron alert-success text-center">
         <h1>Contact page</h1>
     </div>
 </div>
-
-
 <div class="container  col col-lg-10">
     <h3>My contact</h3>
     <div th:if="${contacts!=null and !contacts.empty}">
         <table class="table table-striped table-hover">
-            <tr class="table-success" >
+            <tr class="table-success">
                 <th>Firstname</th>
                 <th>Lastname</th>
                 <th>Email</th>
                 <th>Action</th>
             </tr>
-            <tr th:each="contact:${contacts}" >
+            <tr th:each="contact:${contacts}">
                 <th th:text="${contact.getFirstname()}"></th>
                 <th th:text="${contact.getLastname()}"></th>
                 <th th:text="${contact.getEmail()}"></th>
 
-                <th><form method="POST" th:action="@{/deleteContact}"><button class="btn btn-block btn-danger" th:href="@{/deleteContact}" th:value="${contact.getEmail()}" name="email">delete</button></form></th>
+                <th>
+                    <form method="POST" th:action="@{/deleteContact}">
+                        <button class="btn btn-block btn-danger" th:href="@{/deleteContact}"
+                                th:value="${contact.getEmail()}" name="email">delete
+                        </button>
+                    </form>
+                </th>
             </tr>
         </table>
     </div>
@@ -71,7 +74,7 @@
 <div class="container mb-3 col-12 row justify-content-center">
     <form class="m-3" method="POST" th:action="@{/addContact}">
         <h3 for="contactEmail" class="visually-hidden"> Add a new contact : </h3>
-        <input type="email" name="email" class="form-control" id="contactEmail" placeholder="name@example.com" >
+        <input type="email" name="email" class="form-control" id="contactEmail" placeholder="name@example.com">
         <div class="b-3 form-row col-12 justify-content-center">
             <button th:type="submit" th:href="@{/addContact}" class="btn btn-primary mt-3">add Contact</button>
         </div>

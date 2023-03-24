@@ -10,27 +10,22 @@ import java.util.List;
 @DynamicUpdate
 @Table(name = "wallet")
 public class Wallet {
+    @OneToMany(mappedBy = "walletDebtor")
+    List<Transaction> debtorTransactions = new ArrayList<>();
+    @OneToMany(mappedBy = "walletCreditor")
+    List<Transaction> creditorTransactions = new ArrayList<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "wallet_id")
     private int walletId;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_user_id", referencedColumnName = "user_id")
     private User user;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_bank_account_id", referencedColumnName = "bank_account_id")
     private BankAccount bankAccounts;
-
     @Column(name = "balance")
     private float balance;
-
-    @OneToMany(mappedBy = "walletDebtor")
-    List<Transaction> debtorTransactions = new ArrayList<>();
-
-    @OneToMany(mappedBy = "walletCreditor")
-    List<Transaction> creditorTransactions = new ArrayList<>();
 
     public Wallet() {
     }

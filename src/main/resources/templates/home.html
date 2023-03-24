@@ -7,14 +7,12 @@
     <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
 </head>
 <body class="pt-0">
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand rounded bg-success  disabled" th:href="@{home}"> <p class="ml-3 mr-3 mt-1 mb-1 text-light">PayMyBuddy</p> </a>
-
+    <a class="navbar-brand rounded bg-success  disabled" th:href="@{home}"><p class="ml-3 mr-3 mt-1 mb-1 text-light">
+        PayMyBuddy</p></a>
     <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarText">
         <div class="navbar-text mr-auto">
         </div>
@@ -44,7 +42,7 @@
     <div class="row">
         <div class="form-group row">
             <div class="col-sm">
-                <h2>Hello  <span th:text="${firstname}"></span> ! </h2>
+                <h2>Hello <span th:text="${firstname}"></span> ! </h2>
             </div>
         </div>
     </div>
@@ -54,7 +52,6 @@
                 <h3 class="jumbotron bg-light rounded">Your balance : <span th:text="${balance}"></span> €</h3>
             </div>
         </div>
-
     </div>
 </div>
 </body>

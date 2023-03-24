@@ -4,24 +4,18 @@ import com.paymybuddy.PayMyBuddy.model.BankAccount;
 import com.paymybuddy.PayMyBuddy.model.User;
 import com.paymybuddy.PayMyBuddy.model.Wallet;
 import com.paymybuddy.PayMyBuddy.repository.UserRepository;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
 import static org.mockito.ArgumentMatchers.any;
-
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
-
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -35,7 +29,6 @@ public class UserServiceTest {
     @Mock
     private Principal principal;
 
-    private static final Logger logger = LogManager.getLogger("UserServiceTest");
     @Test
     public void testAddUser()  {
         User user = new User();
@@ -47,7 +40,7 @@ public class UserServiceTest {
 
         when(userRepository.save(any())).thenReturn(user);
         boolean response = userService.addUser(user);
-        verify(userRepository,times(1)).save(any());
+        verify(userRepository,times(2)).save(any());
         assertThat(response).isTrue();
     }
 

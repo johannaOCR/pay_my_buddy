@@ -22,6 +22,7 @@ public class BankAccountServiceTest {
 
     @Mock
     private UserService userService;
+
     @Mock
     private BankAccountRepository bankAccountRepository;
 

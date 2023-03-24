@@ -1,7 +1,6 @@
 package com.paymybuddy.PayMyBuddy.dto;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 
 public class TransactionDTO {
     private String description;
@@ -29,10 +28,14 @@ public class TransactionDTO {
     }
 
     public String getNameDebtor() {
-        if(this.nameCreditor.equals(this.nameDebtor)){
+        if (this.nameCreditor.equals(this.nameDebtor)) {
             return "Bank Account";
         }
         return nameDebtor;
+    }
+
+    public void setNameDebtor(String nameDebtor) {
+        this.nameDebtor = nameDebtor;
     }
 
     public void setNameDebitor(String nameDebitor) {
@@ -55,10 +58,6 @@ public class TransactionDTO {
     public void setAmount(double amount) {
         DecimalFormat df = new DecimalFormat("0.00"); // import java.text.DecimalFormat;
         this.amount = df.format(amount);
-    }
-
-    public void setNameDebtor(String nameDebtor) {
-        this.nameDebtor = nameDebtor;
     }
 
     public void setAmount(String amount) {

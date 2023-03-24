@@ -23,14 +23,14 @@ public class ContactController {
     private UserService userService;
 
     @GetMapping("/contact")
-    public String contact(Principal principal, Model model){
+    public String contact(Principal principal, Model model) {
         List<ContactDTO> contacts = userService.getContactsByUser(principal);
         model.addAttribute("contacts", contacts);
         return "contact";
     }
 
     @PostMapping("/addContact")
-    public String addContact(@RequestParam(name="email") String email, Principal principal ){
+    public String addContact(@RequestParam(name = "email") String email, Principal principal) {
         User user = userService.getUserByEmail(principal.getName());
         User contact = userService.getUserByEmail(email);
         user.addContact(contact);
@@ -39,7 +39,7 @@ public class ContactController {
     }
 
     @PostMapping("/deleteContact")
-    public String deleteBankAccount(@RequestParam (name="email") String email, Principal principal){
+    public String deleteBankAccount(@RequestParam(name = "email") String email, Principal principal) {
         User user = userService.getUserByEmail(principal.getName());
         User contact = userService.getUserByEmail(email);
         user.getContacts().remove(contact);
