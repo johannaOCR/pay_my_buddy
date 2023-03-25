@@ -10,8 +10,8 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand rounded bg-success  disabled" th:href="@{home}"><p class="ml-3 mr-3 mt-1 mb-1 text-light">
         PayMyBuddy</p></a>
-    <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarText"
-            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <button aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler "
+            data-target="#navbarText" data-toggle="collapse" type="button">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
@@ -42,17 +42,17 @@
     </div>
 </div>
 <form class="row col-lg-10 justify-content-end " method="get" th:action="@{/contact}">
-    <button th:href="@{/contact}" class="btn btn-primary">+ Add Connexion</button>
+    <button class="btn btn-primary" th:href="@{/contact}">+ Add Connexion</button>
 </form>
 <form class="container-fluid mb-3 row justify-content-center" method="POST" th:action="@{/addTransfer}">
     <h3 class="row col-lg-9">Send Monney</h3>
     <div class="row col-lg-10 bg-light rounded jumbotron" th:if="${contacts!=null and !contacts.empty}">
         <div class="col">
-            <select class="custom-select col-12" aria-label="" name="emailContact">
+            <select aria-label="" class="custom-select col-12" name="emailContact">
                 <option selected>Select your contact here</option>
                 <option th:each="contact:${contacts}"
-                        th:value="${contact.getEmail()}"
-                        th:text="${contact.getFirstname()+ ' '+ contact.getLastname()}">
+                        th:text="${contact.getFirstname()+ ' '+ contact.getLastname()}"
+                        th:value="${contact.getEmail()}">
                 </option>
             </select>
             <span class="col col-12" th:unless="${contacts!=null and !contacts.empty}">
@@ -60,16 +60,16 @@
             </span>
         </div>
         <div class="col">
-            <textarea id="description" class="form-control" name="description" rows="2">Description here...</textarea>
+            <textarea class="form-control" id="description" name="description" rows="2">Description here...</textarea>
         </div>
         <div class="col">
             <div class="form-outline">
                 <i class="fas fa-dollar-sign trailing"></i>
-                <input type="number" name="amount" placeholder="0€" class="form-control form-icon-trailing"/>
+                <input class="form-control form-icon-trailing" name="amount" placeholder="0€" type="number"/>
             </div>
         </div>
         <div class="col">
-            <button type="submit" class="btn btn-block btn-success " th:href="@{/addTransfer}">Pay</button>
+            <button class="btn btn-block btn-success " th:href="@{/addTransfer}" type="submit">Pay</button>
         </div>
     </div>
 </form>

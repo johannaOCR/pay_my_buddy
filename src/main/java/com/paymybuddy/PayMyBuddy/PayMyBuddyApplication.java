@@ -1,16 +1,11 @@
 package com.paymybuddy.PayMyBuddy;
 
-import com.paymybuddy.PayMyBuddy.model.BankAccount;
-import com.paymybuddy.PayMyBuddy.model.Transaction;
-import com.paymybuddy.PayMyBuddy.model.User;
-import com.paymybuddy.PayMyBuddy.model.Wallet;
 import com.paymybuddy.PayMyBuddy.service.BankAccountService;
 import com.paymybuddy.PayMyBuddy.service.TransactionService;
 import com.paymybuddy.PayMyBuddy.service.UserService;
 import com.paymybuddy.PayMyBuddy.service.WalletService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.util.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -21,35 +16,34 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.Transactional;
 
 
-
 @SpringBootApplication
 @ComponentScan(basePackages = "com.paymybuddy.PayMyBuddy.*")
 @EntityScan("com.paymybuddy.PayMyBuddy.*")
 @EnableJpaRepositories(basePackages = "com.paymybuddy.PayMyBuddy.repository")
 public class PayMyBuddyApplication implements CommandLineRunner {
-	private static final Logger logger = LogManager.getLogger("main");
-	@Autowired
-	private UserService userService;
+    private static final Logger logger = LogManager.getLogger("main");
+    @Autowired
+    private UserService userService;
 
-	@Autowired
-	private WalletService walletService;
+    @Autowired
+    private WalletService walletService;
 
-	@Autowired
-	private TransactionService transactionService;
+    @Autowired
+    private TransactionService transactionService;
 
-	@Autowired
-	private BankAccountService bankAccountService;
+    @Autowired
+    private BankAccountService bankAccountService;
 
 
-	public static void main(String[] args) {
-		SpringApplication.run(PayMyBuddyApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(PayMyBuddyApplication.class, args);
+    }
 
-	@Override
-	@Transactional
-	public void run(String... args) throws Exception {
+    @Override
+    @Transactional
+    public void run(String... args) throws Exception {
 
-	}
+    }
 
 
 }

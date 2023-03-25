@@ -2,7 +2,6 @@ package com.paymybuddy.PayMyBuddy.service;
 
 import com.paymybuddy.PayMyBuddy.model.User;
 import com.paymybuddy.PayMyBuddy.model.Wallet;
-import com.paymybuddy.PayMyBuddy.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,7 +26,7 @@ public class WalletServiceTest {
     private Principal principal;
 
     @Test
-    void testSupplyWalletBalance(){
+    void testSupplyWalletBalance() {
         User user = new User();
         user.setFirstname("testFN");
         user.setLastname("testLN");
@@ -46,7 +45,7 @@ public class WalletServiceTest {
         when(userService.getUserByEmail(any())).thenReturn(user);
         when(principal.getName()).thenReturn(user.getEmail());
 
-        boolean response = walletService.supplyWalletBalance(principal,amount);
+        boolean response = walletService.supplyWalletBalance(principal, amount);
         assertThat(response).isTrue();
     }
 }

@@ -90,8 +90,8 @@
             <div class="form-outline">
                 <label><h5>Amount to transfer : </h5>
                     <i class="fas fa-dollar-sign trailing"></i>
-                    <input class="form-control form-icon-trailing" placeholder="0€" th:href="@{/transferToBank}"
-                           name="amount" type="number"/>
+                    <input class="form-control form-icon-trailing" name="amount" placeholder="0€"
+                           th:href="@{/transferToBank}" type="number"/>
                 </label>
             </div>
         </div>
@@ -112,26 +112,26 @@
     </div>
 </div>
 <div th:if="${bankAccount==null}">
-    <form method="post" th:action="@{/addBankAccount}" th:object="${bankAccount}"
-          class="container-fluid mb-3 row justify-content-center">
+    <form class="container-fluid mb-3 row justify-content-center" method="post" th:action="@{/addBankAccount}"
+          th:object="${bankAccount}">
         <h3 class="row col-lg-9 mb-3 ">Add Bank Account</h3>
         <div class="row col-lg-10 justify-content-center bg-light rounded jumbotron">
             <div class="col-3 text-center">
                 <div class="form-outline">
                     <label class="form-label" for="formBIC">BIC</label>
-                    <input class="form-control" id="formBIC" type="text" name="bic"/>
+                    <input class="form-control" id="formBIC" name="bic" type="text"/>
                 </div>
             </div>
             <div class="col-3 text-center">
                 <div class="form-outline">
                     <label class="form-label" for="formIBAN">IBAN</label>
-                    <input class="form-control" id="formIBAN" type="text" name="iban"/>
+                    <input class="form-control" id="formIBAN" name="iban" type="text"/>
                 </div>
             </div>
             <div class="col-3">
                 <label for="submitAdd"></label>
-                <button class="mt-4 btn-group-lg btn btn-block btn-success" type="submit" id="submitAdd"
-                        th:href="@{/addBankAccount}">ADD
+                <button class="mt-4 btn-group-lg btn btn-block btn-success" id="submitAdd" th:href="@{/addBankAccount}"
+                        type="submit">ADD
                 </button>
             </div>
         </div>
@@ -153,13 +153,13 @@
                 <div class="col">
                     <div class="form-outline">
                         <label class="form-label " for="formNameOnCard">Name on card</label>
-                        <input class="form-control" id="formNameOnCard" type="text" name="cardName"/>
+                        <input class="form-control" id="formNameOnCard" name="cardName" type="text"/>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-outline">
                         <label class="form-label" for="formCardNumber">Card number</label>
-                        <input class="form-control" id="formCardNumber" type="text" name="cardNumber"/>
+                        <input class="form-control" id="formCardNumber" name="cardNumber" type="text"/>
                     </div>
                 </div>
             </div>
@@ -167,13 +167,13 @@
                 <div class="col-6">
                     <div class="form-outline">
                         <label class="form-label" for="formExpiration">Expiration</label>
-                        <input class="form-control" id="formExpiration" type="text" name="expirationDate"/>
+                        <input class="form-control" id="formExpiration" name="expirationDate" type="text"/>
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="form-outline">
                         <label class="form-label" for="formCVV">CVV</label>
-                        <input class="form-control" id="formCVV" type="text" name="CVV"/>
+                        <input class="form-control" id="formCVV" name="CVV" type="text"/>
                     </div>
                 </div>
             </div>
@@ -182,7 +182,7 @@
             <div class="form-outline col">
                 <label><h5>Amount to supply : </h5>
                     <i class="fas fa-dollar-sign trailing"></i>
-                    <input class="form-control form-icon-trailing col-10" placeholder="€" name="amount" type="number"/>
+                    <input class="form-control form-icon-trailing col-10" name="amount" placeholder="€" type="number"/>
                 </label>
             </div>
         </div>
@@ -194,51 +194,51 @@
         </div>
     </div>
 </form>
-<form method="post" class="container-fluid mb-3 row justify-content-center" th:action="@{/updateProfile}">
+<form class="container-fluid mb-3 row justify-content-center" method="post" th:action="@{/updateProfile}">
     <h3 class="row col-lg-9 mb-3 ">Update your profile</h3>
     <div class="row col-lg-10 bg-light rounded jumbotron">
         <div class="col">
             <label for="firstname">Firstname</label>
-            <input class="form-control" id="firstname" th:placeholder="${user.getFirstname()}" name="firstname"
+            <input class="form-control" id="firstname" name="firstname" th:placeholder="${user.getFirstname()}"
                    type="firstname">
         </div>
         <div class="col">
             <label for="lastname">Lastname</label>
-            <input class="form-control" id="lastname" th:placeholder="${user.getLastname()}" name="lastname"
+            <input class="form-control" id="lastname" name="lastname" th:placeholder="${user.getLastname()}"
                    type="lastname">
         </div>
         <div th:if="${bankAccount!=null}">
             <div class="col">
                 <label for="bic">BIC</label>
-                <input class="form-control" id="bic" th:placeholder="${bankAccount.getBic()}" name="bic" type="bic">
+                <input class="form-control" id="bic" name="bic" th:placeholder="${bankAccount.getBic()}" type="bic">
             </div>
             <div class="col">
                 <label for="iban">IBAN</label>
-                <input class="form-control" id="iban" th:placeholder="${bankAccount.getIban()}" name="iban" type="iban">
+                <input class="form-control" id="iban" name="iban" th:placeholder="${bankAccount.getIban()}" type="iban">
             </div>
         </div>
         <div>
             <div class="col">
                 <label for="mdp">password</label>
-                <input class="form-control" id="mdp" placeholder="************" name="mdp">
+                <input class="form-control" id="mdp" name="mdp" placeholder="************">
             </div>
             <div class="col">
                 <label for="iban">password controle</label>
-                <input class="form-control" id="mdp_control" placeholder="************" name="mdp">
+                <input class="form-control" id="mdp_control" name="mdp2" placeholder="************">
             </div>
         </div>
         <div class="col mt-4">
             <label for="button"></label>
-            <button class="btn-group-lg btn btn-block btn-success " id="button" type="submit"
-                    th:action="@{/updateProfile}">Update
+            <button class="btn-group-lg btn btn-block btn-success " id="button" th:action="@{/updateProfile}"
+                    type="submit">Update
             </button>
         </div>
     </div>
 </form>
-<form method="post" class="container-fluid mb-3 row justify-content-center" th:action="@{/deleteUser}">
+<form class="container-fluid mb-3 row justify-content-center" method="post" th:action="@{/deleteUser}">
     <h3 class="row col-lg-9 mb-3 ">Delete your profile</h3>
     <div class="row col-lg-10 bg-light rounded jumbotron justify-content-center">
-        <button class="btn-group-sm btn btn-danger " type="submit" th:action="@{/deleteUser}">Delete profile</button>
+        <button class="btn-group-sm btn btn-danger " th:action="@{/deleteUser}" type="submit">Delete profile</button>
     </div>
 </form>
 </body>

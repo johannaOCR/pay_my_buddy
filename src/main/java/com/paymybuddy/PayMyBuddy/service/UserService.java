@@ -56,7 +56,7 @@ public class UserService implements UserDetailsService {
         return false;
     }
 
-    public boolean updateProfil(String firstname, String lastname, String iban, String bic, Principal principal) {
+    public boolean updateProfil(String firstname, String lastname, String iban, String bic, Principal principal, String password, String password2) {
         boolean isUpdated = false;
 
         User user = this.getUserByEmail(principal.getName());
@@ -80,6 +80,11 @@ public class UserService implements UserDetailsService {
                 user.getWallet().getBankAccounts().setIban(iban);
                 isUpdated = true;
                 logger.info("iban updated : " + iban);
+            }
+            if (!Objects.equals(firstname, "") && Objects.equals(password, password2)) {
+                user.setPassword(password);
+                isUpdated = true;
+                logger.info("password updated");
             }
             this.saveUser(user);
         }

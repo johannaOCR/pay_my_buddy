@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import java.security.Principal;
 
 @Controller
@@ -54,9 +55,11 @@ public class UserController {
             @RequestParam(name = "firstname") String firstname,
             @RequestParam(required = false, name = "bic") String bic,
             @RequestParam(required = false, name = "iban") String iban,
+            @RequestParam(required = false, name = "mdp") String password,
+            @RequestParam(required = false, name = "mdp2") String password2,
             Principal principal) {
         logger.info("Try to update profile");
-        userService.updateProfil(firstname, lastname, bic, iban, principal);
+        userService.updateProfil(firstname, lastname, bic, iban, principal, password, password2);
         return "redirect:/profile";
     }
 

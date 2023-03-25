@@ -1,6 +1,5 @@
 package com.paymybuddy.PayMyBuddy.service;
 
-import com.paymybuddy.PayMyBuddy.dto.TransactionDTO;
 import com.paymybuddy.PayMyBuddy.model.BankAccount;
 import com.paymybuddy.PayMyBuddy.model.Transaction;
 import com.paymybuddy.PayMyBuddy.model.User;
@@ -12,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,7 +41,7 @@ public class TransactionServiceTest {
     private UserService userService;
 
     @Test
-    void testAddBankTransaction(){
+    void testAddBankTransaction() {
         User user = new User();
         user.setFirstname("testFN");
         user.setLastname("testLN");
@@ -66,13 +66,13 @@ public class TransactionServiceTest {
         when(userRepository.findByEmail(user.getEmail())).thenReturn(user);
         when(principal.getName()).thenReturn(user.getEmail());
 
-        boolean response = transactionService.addTransactionToBank(principal,12);
+        boolean response = transactionService.addTransactionToBank(principal, 12);
 
         assertThat(response).isTrue();
     }
 
     @Test
-    void testAddTransaction(){
+    void testAddTransaction() {
         User user = new User();
         user.setFirstname("testFN");
         user.setLastname("testLN");
@@ -105,13 +105,13 @@ public class TransactionServiceTest {
         when(userRepository.findByEmail(contact.getEmail())).thenReturn(contact);
         when(principal.getName()).thenReturn(user.getEmail());
 
-        boolean response = transactionService.addTransaction(principal,"test",12,contact.getEmail());
+        boolean response = transactionService.addTransaction(principal, "test", 12, contact.getEmail());
 
         assertThat(response).isTrue();
     }
 
     @Test
-    void testGetTransactionsByUser(){
+    void testGetTransactionsByUser() {
         User user = new User();
         user.setFirstname("testFN");
         user.setLastname("testLN");
@@ -142,8 +142,8 @@ public class TransactionServiceTest {
 
         transactionService.getTransactionsByUser(principal);
 
-        verify(transactionRepository,times(1)).findAllByWalletCreditorId(anyInt());
-        verify(transactionRepository,times(1)).findAllByWalletDebtorId(anyInt());
+        verify(transactionRepository, times(1)).findAllByWalletCreditorId(anyInt());
+        verify(transactionRepository, times(1)).findAllByWalletDebtorId(anyInt());
 
     }
 
