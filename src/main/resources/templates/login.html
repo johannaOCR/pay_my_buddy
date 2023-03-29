@@ -1,0 +1,37 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pay My Buddy login</title>
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet">
+</head>
+<body>
+<div class="container col-3 bg-light border">
+    <form class="form-signin" method="post" th:action="@{/process-login}">
+        <div class=" col-12 row justify-content-center">
+            <h2 class="mb-3 btn btn-success btn-large">Pay My Buddy</h2>
+        </div>
+        <div class=" alert alert-danger" th:if="${param.error}">
+            Invalid username and password.
+        </div>
+        <div class=" alert alert-danger" th:if="${param.logout}">
+            You have been logged out.
+        </div>
+        <p>
+            <label class="sr-only" for="email">Username</label>
+            <input autofocus="" class="form-control" id="email" name="email" placeholder="Email" required
+                   type="text">
+        </p>
+        <p>
+            <label class="sr-only" for="password">Password</label>
+            <input class="form-control" id="password" name="passcode" placeholder="Password" required
+                   type="password">
+        </p>
+        <button class="mb-2 btn btn-lg btn-primary btn-block" th:href="@{/login}" type="submit" value="Login">Login
+        </button>
+        <a class="mb-2 btn btn-lg btn-outline-secondary btn-block" th:href="@{/sign-up}">Sign up</a>
+    </form>
+</div>
+</body>
+</html>

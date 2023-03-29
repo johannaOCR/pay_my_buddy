@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>PayMyBuddy</title>
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet">
+</head>
+<body class="pt-0">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand rounded bg-success  disabled" th:href="@{home}"><p class="ml-3 mr-3 mt-1 mb-1 text-light">
+        PayMyBuddy</p></a>
+    <button aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler "
+            data-target="#navbarText" data-toggle="collapse" type="button">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <div class="navbar-text mr-auto">
+        </div>
+        <ul class="navbar-nav">
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{home}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{transfer}">Transfer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{profile}">Profile</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{contact}">Contact<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{logout}">Log off</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid mb-3 col-12 justify-content-center ">
+    <div class="jumbotron alert-success text-center">
+        <h1>Contact page</h1>
+    </div>
+</div>
+<div class="container  col col-lg-10">
+    <h3>My contact</h3>
+    <div th:if="${contacts!=null and !contacts.empty}">
+        <table class="table table-striped table-hover">
+            <tr class="table-success">
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+            <tr th:each="contact:${contacts}">
+                <th th:text="${contact.getFirstname()}"></th>
+                <th th:text="${contact.getLastname()}"></th>
+                <th th:text="${contact.getEmail()}"></th>
+
+                <th>
+                    <form method="POST" th:action="@{/deleteContact}">
+                        <button class="btn btn-block btn-danger" name="email"
+                                th:href="@{/deleteContact}" th:value="${contact.getEmail()}">delete
+                        </button>
+                    </form>
+                </th>
+            </tr>
+        </table>
+    </div>
+    <div th:unless="${contacts!=null and !contacts.empty}">
+        <p>No contact added</p>
+    </div>
+</div>
+<div class="container mb-3 col-12 row justify-content-center">
+    <form class="m-3" method="POST" th:action="@{/addContact}">
+        <h3 class="visually-hidden" for="contactEmail"> Add a new contact : </h3>
+        <input class="form-control" id="contactEmail" name="email" placeholder="name@example.com" type="email">
+        <div class="b-3 form-row col-12 justify-content-center">
+            <button class="btn btn-primary mt-3" th:href="@{/addContact}" th:type="submit">add Contact</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
